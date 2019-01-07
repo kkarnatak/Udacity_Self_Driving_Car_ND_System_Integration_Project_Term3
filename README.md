@@ -9,6 +9,8 @@ Please refer to the video [Video](./imgs/output.mp4)
 
 ### Setup
 
+I have used the latest version of keras and tensorflow. The keras and tensorflow version mentioned in the requirements.txt have some bugs for e.g. ( keras load_model gives an error which is fixed in later version, tensorflow softmax does not accept axis as inputs which is also fixed in later versions).
+
 I used the virtual machine provided by Udacity. I had lot of difficulties in the initial machine setup as due to proxy setup on my network, I could not use "pip" package manager and relied on "conda". Conda has some issues with regard to python-socketio and ros_pkg libs.
 
 Nevertheless, after lot of configuration issues, I managed to run the native setup.
@@ -19,7 +21,7 @@ The instructions were already given in detail in the project descriptions thus n
 
 # Software Architecture
 
-![alt text](./imgs/software_arch.PNG "Software Architecture")
+![alt text](./imgs/software_arch.png "Software Architecture")
 
 
 ## Node Architecture of the project
