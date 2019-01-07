@@ -127,6 +127,7 @@ It also uses the traffic light position, in case a traffic light is in sight, a 
 
 * The PID controller does not seem to be very smooth at times, especially when ego car stops and wait at the traffic light.
 * The traffic light detection reacts slowly when ego car drives on maximum speed. The zoom in feature should be considered to avoid this.
+* Since, I had very limited time, I could not test on site setup, thus, I am not sure how the response will be. I will test it in next days and will update the summary.
 
 -------------------------------------------------------------------------------------------------------------------------------------
 
