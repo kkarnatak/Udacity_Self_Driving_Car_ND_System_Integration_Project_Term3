@@ -19,7 +19,7 @@ The instructions were already given in detail in the project descriptions thus n
 
 # Software Architecture
 
-![alt text](./imgs/software_arch.png "Software Architecture")
+![alt text](./imgs/software_arch.PNG "Software Architecture")
 
 
 ## Node Architecture of the project
@@ -27,7 +27,7 @@ The instructions were already given in detail in the project descriptions thus n
 The nodes structure in the project are as below:
 
 
-![alt text](./imgs/nodes_ros_final.png "nodes")
+![alt text](./imgs/nodes_ros_final.PNG "nodes")
 
 
 ## 1. Perception System
@@ -36,16 +36,16 @@ The nodes structure in the project are as below:
 
 From the extracted images, I created a dataset manually which looks like this:
 
-![alt text](./imgs/dataset.png "dataset of images")
+![alt text](./imgs/dataset.PNG "dataset of images")
 
-[Dataset Dir Link](./ros/src/l_detector/tl_classifier_trainer/dataset/)
+[Dataset Dir Link](./ros/src/tl_detector/tl_classifier_trainer/dataset/)
 
 I then wrote a traffic light classifier
 
 I designed a simple network as follows:
 
 
-![alt text](./imgs/model.png "keras model for traffic light")
+![alt text](./imgs/model.PNG "keras model for traffic light")
 
 The input size of the images were choosen to be (224, 224). I tried using lower resolution but I didnt find the results satisfactory.
 
@@ -53,7 +53,7 @@ Since, the images I had were limited, I used some basic image augmentations [Lin
 
 The model [Line 55](./ros/src/tl_detector/tl_classifier_trainer/train.py#L55) acheived around 99% accuracy.
 
-![alt text](./imgs/acc.png "accuracy")
+![alt text](./imgs/acc.PNG "accuracy")
 
 ### tl_detector node
 
@@ -87,16 +87,16 @@ Each of the following has an independent controller and does the following:
 
 1. **Throttle Controller**: It is a PID controller similar to MPC project done in previous term. The Throttle is set as per the difference in the veloctiy computed from the error in the desired and current velocity.
 
-![alt text](./imgs/throttle.png "Throttle")
+![alt text](./imgs/throttle.PNG "Throttle")
 
 2. **Steering Controller**: Its again a PID controller which uses the cross track error [Line 73](./ros/src/twist_controller/twist_controller.py#L73), along with a predictive pid controller [Line 74](./ros/src/twist_controller/twist_controller.py#L74).
 The final steering value is the difference of the two.
-![alt text](./imgs/steering.png "Steering")
+![alt text](./imgs/steering.PNG "Steering")
 
 3. **Brake Controller**: It considers the overall mass of the vehicle, the wheel radius and the set deceleration to compute the final braking value.
 [Line 67](./ros/src/twist_controller/twist_controller.py#L67).
-![alt text](./imgs/brake2.png "BRakes")
-![alt text](./imgs/brake1.png "BRakes")
+![alt text](./imgs/brake2.PNG "BRakes")
+![alt text](./imgs/brake1.PNG "BRakes")
 
 
 # Planning SubSystem
@@ -106,13 +106,13 @@ This subsystem is responsible to do path planning using the current ego car velo
 ## Waypoint Updater
 
 The main path planning setup is within this node. It is responsible for deciding the velocity at each position during the entire run. It mainly uses current ego position, velocity and list of the waypoints.
-![alt text](./imgs/waypoint0.png "wp")
+![alt text](./imgs/waypoint0.PNG "wp")
 
 As each waypoint has a velocity and position associated with it, it helps in planning a path. The moment ego car change its position, a new path is generated. It sets the acceleration and deceleration factors as well.
-![alt text](./imgs/waypoint1.png "wp")
+![alt text](./imgs/waypoint1.PNG "wp")
 
 It also uses the traffic light position, in case a traffic light is in sight, a must stop waypoint index is selected and the ego car should start decelerating until this waypoint. Beyond this waypoint, the velocity is set to 0. Once, the traffic light is green, the velocities for waypoints is reset and the ego car continues.
-![alt text](./imgs/waypoint1.png "wp")
+![alt text](./imgs/waypoint1.PNG "wp")
 
 
 
