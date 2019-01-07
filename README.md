@@ -49,11 +49,11 @@ I designed a simple network as follows:
 
 The input size of the images were choosen to be (224, 224). I tried using lower resolution but I didnt find the results satisfactory.
 
-Since, the images I had were limited, I used some basic image augmentations [Line 37](./ros/src/l_detector/tl_classifier_trainer/train.py#L37) to create augmented images. This way I had around 1101 samples, 990 for training and 111 for validation. This helped me in increasing the accuracy rate, trust me I spend hours in getting the right model :)
+Since, the images I had were limited, I used some basic image augmentations [Line 37](./ros/src/tl_detector/tl_classifier_trainer/train.py#L37) to create augmented images. This way I had around 1101 samples, 990 for training and 111 for validation. This helped me in increasing the accuracy rate, trust me I spend hours in getting the right model :)
 
 The model [Line 55](./ros/src/tl_detector/tl_classifier_trainer/train.py#L55) acheived around 99% accuracy.
 
-![alt text](./imgs/acc.PNG "accuracy")
+![alt text](./imgs/acc.png "accuracy")
 
 ### tl_detector node
 
@@ -91,11 +91,14 @@ Each of the following has an independent controller and does the following:
 
 2. **Steering Controller**: Its again a PID controller which uses the cross track error [Line 73](./ros/src/twist_controller/twist_controller.py#L73), along with a predictive pid controller [Line 74](./ros/src/twist_controller/twist_controller.py#L74).
 The final steering value is the difference of the two.
+
 ![alt text](./imgs/steering.PNG "Steering")
 
 3. **Brake Controller**: It considers the overall mass of the vehicle, the wheel radius and the set deceleration to compute the final braking value.
 [Line 67](./ros/src/twist_controller/twist_controller.py#L67).
+
 ![alt text](./imgs/brake2.PNG "BRakes")
+
 ![alt text](./imgs/brake1.PNG "BRakes")
 
 
@@ -106,15 +109,24 @@ This subsystem is responsible to do path planning using the current ego car velo
 ## Waypoint Updater
 
 The main path planning setup is within this node. It is responsible for deciding the velocity at each position during the entire run. It mainly uses current ego position, velocity and list of the waypoints.
+
 ![alt text](./imgs/waypoint0.PNG "wp")
 
 As each waypoint has a velocity and position associated with it, it helps in planning a path. The moment ego car change its position, a new path is generated. It sets the acceleration and deceleration factors as well.
+
 ![alt text](./imgs/waypoint1.PNG "wp")
 
 It also uses the traffic light position, in case a traffic light is in sight, a must stop waypoint index is selected and the ego car should start decelerating until this waypoint. Beyond this waypoint, the velocity is set to 0. Once, the traffic light is green, the velocities for waypoints is reset and the ego car continues.
+
 ![alt text](./imgs/waypoint1.PNG "wp")
 
 
+## Observations
+
+* The PID controller does not seem to be very smooth at times, especially when ego car stops and wait at the traffic light.
+* The traffic light detection reacts slowly when ego car drives on maximum speed. The zoom in feature should be considered to avoid this.
+
+-------------------------------------------------------------------------------------------------------------------------------------
 
 This is the project repo for the final project of the Udacity Self-Driving Car Nanodegree: Programming a Real Self-Driving Car. For more information about the project, see the project introduction [here](https://classroom.udacity.com/nanodegrees/nd013/parts/6047fe34-d93c-4f50-8336-b70ef10cb4b2/modules/e1a23b06-329a-4684-a717-ad476f0d8dff/lessons/462c933d-9f24-42d3-8bdc-a08a5fc866e4/concepts/5ab4b122-83e6-436d-850f-9f4d26627fd9).
 
