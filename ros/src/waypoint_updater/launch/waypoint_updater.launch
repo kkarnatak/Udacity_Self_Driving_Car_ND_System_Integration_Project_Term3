@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="waypoint_updater" type="waypoint_updater.py" name="waypoint_updater">
+      <param name="target_brake_acceleration_value" value="-1.1." />
+      <param name="minimum_stop_margin" value="4." />
+      <param name="end_waypoint_halt_override" value="false" />
+      <param name="halt_at_red_light" value="true" />
+    </node>
+</launch>
